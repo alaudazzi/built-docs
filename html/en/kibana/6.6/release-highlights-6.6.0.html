@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>6.6.0 release highlights
         | Kibana User Guide [6.6]
       | Elastic
-    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Kibana User Guide [6.6]" /><link rel="up" href="release-highlights.html" title="Kibana Release Highlights" /><link rel="prev" href="release-highlights.html" title="Kibana Release Highlights" /><link rel="next" href="release-highlights-6.5.0.html" title="6.5.0 release highlights" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/Kibana/Reference/6.6" /><meta name="DC.subject" content="Kibana" /><meta name="DC.identifier" content="6.6" />
+    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Kibana User Guide [6.6]" /><link rel="up" href="release-highlights.html" title="Release Highlights" /><link rel="prev" href="release-highlights.html" title="Release Highlights" /><link rel="next" href="release-highlights-6.5.0.html" title="6.5.0 release highlights" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/Kibana/Reference/6.6" /><meta name="DC.subject" content="Kibana" /><meta name="DC.identifier" content="6.6" />
     
 
     
@@ -694,11 +694,14 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Kibana User Guide
+<div class="page_header">You are looking at documentation for an older release.
+Not what you want? See the
+<a href="../current/index.html">current release documentation</a>.
+</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Kibana User Guide
       [6.6]
-    </a></span> » <span class="breadcrumb-link"><a href="release-highlights.html">Kibana Release Highlights</a></span> » <span class="breadcrumb-node">6.6.0 release highlights</span></div><div class="navheader"><span class="prev"><a href="release-highlights.html">
+    </a></span> » <span class="breadcrumb-link"><a href="release-highlights.html">Release Highlights</a></span> » <span class="breadcrumb-node">6.6.0 release highlights</span></div><div class="navheader"><span class="prev"><a href="release-highlights.html">
               « 
-              Kibana Release Highlights</a>
+              Release Highlights</a>
            
         </span><span class="next">
            
@@ -709,7 +712,7 @@ Here are the highlights of the feature and user experience changes in 6.6.0.</p>
 bug fixes and other changes.</p><h3><a id="_support_for_multiple_elasticsearch_nodes"></a>Support for multiple Elasticsearch nodes<a href="https://github.com/elastic/kibana/edit/6.6/docs/release-notes/highlights-6.6.0.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>For increased stability, you can now define multiple Elasticsearch nodes for Kibana. This
 prevents Kibana from being tied to a single Elasticsearch node while allowing for the
 requests to be distributed over multiple nodes in the cluster.  Simply set
-<code class="literal">elasticsearch.host</code> in your kibana.yml file to the URLs of the Elasticsearch nodes you
+<code class="literal">elasticsearch.hosts</code> in your kibana.yml file to the URLs of the Elasticsearch nodes you
 want to use.  You can also configure Kibana to automatically discover other nodes
 in the cluster (<code class="literal">elasticsearch.sniffOnStart</code>) or on an interval (<code class="literal">elasticsearch.sniffInterval</code>).
 For more information, see <a class="ulink" href="https://www.elastic.co/guide/en/kibana/6.6/settings.html" target="_top">Kibana configuration settings</a>.</p><h3><a id="_index_lifecycle_policies_beta"></a>Index lifecycle policies (beta)<a href="https://github.com/elastic/kibana/edit/6.6/docs/release-notes/highlights-6.6.0.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>Kibana has additional <span class="strong strong"><strong>Management</strong></span> user interfaces that provide a simple,
@@ -748,7 +751,7 @@ system, there are machine learning wizards that recognize this type of data. The
 the creation of customized jobs, dashboards, searches, and visualizations.</p><p>For example, you can select a supplied configuration to detect unusual processes
 in Docker containers:</p><div class="screenshot informalfigure"><div class="mediaobject"><img src="images/highlights-6.6.0-data-recognizer.jpg" alt="machine learning jobs for Auditbeat data" /></div></div><p>For more information, see <a class="xref" href="ml-jobs.html" title="Creating machine learning jobs"><em>Creating machine learning jobs</em></a>.</p></div><div class="navfooter"><span class="prev"><a href="release-highlights.html">
               « 
-              Kibana Release Highlights</a>
+              Release Highlights</a>
            
         </span><span class="next">
            

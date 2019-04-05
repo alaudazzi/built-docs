@@ -707,7 +707,7 @@ Not what you want? See the
            
           <a href="commands.html">Command line tools
                »
-            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="ml-event-resource"></a>Scheduled event resources<a href="https://github.com/elastic/elasticsearch/edit/master/docs/reference/ml/apis/eventresource.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>An events resource has the following properties:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="ml-event-resource"></a>Scheduled event resources<a href="https://github.com/elastic/elasticsearch/edit/master/docs/reference/ml/apis/eventresource.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>An events resource has the following properties:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">calendar_id</code>
 </span></dt><dd>
   (string) An identifier for the calendar that contains the scheduled
@@ -719,8 +719,8 @@ Not what you want? See the
 </dd><dt><span class="term">
 <code class="literal">end_time</code>
 </span></dt><dd>
-  (string) The timestamp for the end of the scheduled event. The datetime string
-  is in ISO 8601 format.
+  (date) The timestamp for the end of the scheduled event
+  in milliseconds since the epoch or ISO 8601 format.
 </dd><dt><span class="term">
 <code class="literal">event_id</code>
 </span></dt><dd>
@@ -728,8 +728,8 @@ Not what you want? See the
 </dd><dt><span class="term">
 <code class="literal">start_time</code>
 </span></dt><dd>
- (string) The timestamp for the beginning of the scheduled event. The datetime
- string is in ISO 8601 format.
+ (date) The timestamp for the beginning of the scheduled event
+ in milliseconds since the epoch or ISO 8601 format.
 </dd></dl></div><p>For more information, see
 <a class="ulink" href="https://www.elastic.co/guide/en/elastic-stack-overview/master/ml-calendars.html" target="_top">Calendars and Scheduled Events</a>.</p></div><div class="navfooter"><span class="prev"><a href="ml-results-resource.html">
               « 

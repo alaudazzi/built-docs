@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Public API
         | APM .NET Agent Reference (Prototype)
       | Elastic
-    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="APM .NET Agent Reference (Prototype)" /><link rel="up" href="index.html" title="APM .NET Agent Reference (Prototype)" /><link rel="prev" href="config-reporter.html" title="Reporter configuration options" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/APM .NET Agent/Reference" /><meta name="DC.subject" content="APM" /><meta name="DC.identifier" content="master" />
+    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="APM .NET Agent Reference (Prototype)" /><link rel="up" href="_apm_net_agent_reference_prototype.html" title="APM .NET Agent Reference (Prototype)" /><link rel="prev" href="config-http.html" title="HTTP configuration options" /><link rel="next" href="release-notes.html" title="Release notes" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/APM .NET Agent/Reference" /><meta name="DC.subject" content="APM" /><meta name="DC.identifier" content="master" />
     
 
     
@@ -694,13 +694,15 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="page_header">You are looking at preliminary documentation for a future release.</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">APM .NET Agent Reference (Prototype)</a></span> » <span class="breadcrumb-node">Public API</span></div><div class="navheader"><span class="prev"><a href="config-reporter.html">
+<div class="page_header">You are looking at preliminary documentation for a future release.</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">APM .NET Agent Reference (Prototype)</a></span> » <span class="breadcrumb-link"><a href="_apm_net_agent_reference_prototype.html">APM .NET Agent Reference (Prototype)</a></span> » <span class="breadcrumb-node">Public API</span></div><div class="navheader"><span class="prev"><a href="config-http.html">
               « 
-              Reporter configuration options</a>
+              HTTP configuration options</a>
            
         </span><span class="next">
            
-          </span></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="public-api"></a>Public API<a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h1></div></div></div><p>The public API of the Elastic APM .NET agent lets you
+          <a href="release-notes.html">Release notes
+               »
+            </a></span></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="public-api"></a>Public API<a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>The public API of the Elastic APM .NET agent lets you
 customize and manually create spans and transactions,
 as well as track errors.</p><h3><a id="api-tracer-api"></a>Tracer API<a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>The tracer gives you access to the currently active transaction and it enables you to manually start a transaction.</p><p>You can access the API by using the static property on the Agent: <code class="literal">Elastic.Apm.Agent.Tracer</code>.</p><h4><a id="api-start-transaction"></a><code class="literal">Transaction StartTransaction(string name, string type)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Use this method to create a custom transaction.</p><p>Note that in the case of auto-instrumentation, the agent will automatically do this for you. For example, if you have incoming HTTP calls in an ASP.NET Core application, the agent automatically starts a transaction. In these instances, this method is not needed.</p><p>It’s important to call <a class="xref" href="public-api.html#api-transaction-end" title="void End()edit"><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> when the transaction has ended.
 A best practice is to use the transaction in a try-catch-finally block or to use the <a class="xref" href="public-api.html#convenient-capture-transaction" title="Transaction CaptureTransactionedit"><code class="literal">Transaction CaptureTransaction</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> method.</p><p>Example:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var transaction = Elastic.Apm.Agent
@@ -720,29 +722,7 @@ finally
 }</pre></div><h4><a id="api-current-transaction"></a><code class="literal">Transaction CurrentTransaction</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Returns the currently active transaction.
 See the <a class="xref" href="public-api.html#api-transaction" title="Transaction APIedit">Transaction API<a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> to customize the current transaction.</p><p>If there is no current transaction,
 this method will return null.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;</pre></div><h4><a id="convenient-capture-transaction"></a><code class="literal">Transaction CaptureTransaction</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>This is a convenient method which starts and ends a transaction and captures unhandled exceptions.
-It has 3 parameters:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-<code class="literal">name</code>: The name of the transaction
-</li><li class="listitem">
-<code class="literal">type</code> The type of the transaction
-</li><li class="listitem"><p class="simpara">
-One of the following types which references the code that you want to capture as a transaction:
-</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
-<code class="literal">Action</code>
-</li><li class="listitem">
-<code class="literal">Action&lt;ITransaction&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;T&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,T&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;Task&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,Task&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;Task&lt;T&gt;&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,Task&lt;T&gt;&gt;</code>
-</li></ul></div></li></ul></div><p>The following code is the equivalent of the previous example with the convenient API. It automatically starts and ends the transaction and reports unhandled exceptions. The <code class="literal">t</code> parameter gives you access to the <code class="literal">ITransaction</code> instance which represents the transaction that you just created.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">Elastic.Apm.Agent.Tracer
+It has 3 parameters:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><code class="literal">name</code>: The name of the transaction</li><li class="listitem"><code class="literal">type</code> The type of the transaction</li><li class="listitem"><p class="simpara">One of the following types which references the code that you want to capture as a transaction:</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><code class="literal">Action</code></li><li class="listitem"><code class="literal">Action&lt;ITransaction&gt;</code></li><li class="listitem"><code class="literal">Func&lt;T&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,T&gt;</code></li><li class="listitem"><code class="literal">Func&lt;Task&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,Task&gt;</code></li><li class="listitem"><code class="literal">Func&lt;Task&lt;T&gt;&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,Task&lt;T&gt;&gt;</code></li></ul></div></li></ul></div><p>The following code is the equivalent of the previous example with the convenient API. It automatically starts and ends the transaction and reports unhandled exceptions. The <code class="literal">t</code> parameter gives you access to the <code class="literal">ITransaction</code> instance which represents the transaction that you just created.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">Elastic.Apm.Agent.Tracer
         .CaptureTransaction("TestTransaction", Transaction.TypeRequest, (t) =&gt;
 {
    //application code that is captured as a transaction
@@ -773,39 +753,9 @@ finally
     {
         transaction.Tags["foo"] = "bar";
         //application code that is captured as a transaction
-    });</pre></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-<code class="literal">key</code>:   The tag key
-</li><li class="listitem">
-<code class="literal">value</code>: The tag value
-</li></ul></div><h4><a id="api-transaction-end"></a><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Ends the transaction and schedules it to be reported to the APM Server.</p><p>It is illegal to call any methods on a span instance which has already ended.
+    });</pre></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><code class="literal">key</code>:   The tag key</li><li class="listitem"><code class="literal">value</code>: The tag value</li></ul></div><h4><a id="api-transaction-end"></a><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Ends the transaction and schedules it to be reported to the APM Server.</p><p>It is illegal to call any methods on a span instance which has already ended.
 This also includes this method and <a class="xref" href="public-api.html#api-transaction-create-span" title="Span StartSpan(string name, string type, string subType = null, string action = null)edit"><code class="literal">Span StartSpan(string name, string type, string subType = null, string action = null)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a>.</p><p>Example:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">transaction.End();</pre></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>If you use the <a class="xref" href="public-api.html#convenient-capture-transaction" title="Transaction CaptureTransactionedit"><code class="literal">Transaction CaptureTransaction</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> method you must not call <a class="xref" href="public-api.html#api-transaction-end" title="void End()edit"><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a>.</p></div></div><h4><a id="api-transaction-capture-exception"></a><code class="literal">void CaptureException(Exception e)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures an exception and reports it to the APM server.</p><h4><a id="api-transaction-capture-error"></a><code class="literal">void CaptureError(string message, string culprit, StackFrame[] frames)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures a custom error and reports it to the APM server.</p><p>This method is typically used when you want to report an error, but you don’t have an <code class="literal">Exception</code> instance.</p><h4><a id="convenient-capture-span"></a><code class="literal">Transaction CaptureSpan</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>This is a convenient method which starts and ends a span on the given transaction and captures unhandled exceptions. It has the same overloads as the <a class="xref" href="public-api.html#convenient-capture-transaction" title="Transaction CaptureTransactionedit"><code class="literal">Transaction CaptureTransaction</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> method.
-It has 5 parameters:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-<code class="literal">name</code>: The name of the span
-</li><li class="listitem">
-<code class="literal">type</code> The type of the span
-</li><li class="listitem"><p class="simpara">
-One of the following types which references the code that you want to capture as a transaction:
-</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
-<code class="literal">Action</code>
-</li><li class="listitem">
-<code class="literal">Action&lt;ITransaction&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;T&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,T&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;Task&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,Task&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;Task&lt;T&gt;&gt;</code>
-</li><li class="listitem">
-<code class="literal">Func&lt;ITransaction,Task&lt;T&gt;&gt;</code>
-</li></ul></div></li><li class="listitem">
-<code class="literal">supType</code> (optional): The subtype of the span
-</li><li class="listitem">
-<code class="literal">action</code> (optional): The action of the span
-</li></ul></div><p>The following code is the equivalent of the previous example from the <a class="xref" href="public-api.html#api-transaction-create-span" title="Span StartSpan(string name, string type, string subType = null, string action = null)edit"><code class="literal">Span StartSpan(string name, string type, string subType = null, string action = null)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> section with the convenient API. It automatically starts and ends the span and reports unhandled exceptions. The <code class="literal">s</code> parameter gives you access to the <code class="literal">ISpan</code> instance which represents the span that you just created.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">ITransaction transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;
+It has 5 parameters:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><code class="literal">name</code>: The name of the span</li><li class="listitem"><code class="literal">type</code> The type of the span</li><li class="listitem"><p class="simpara">One of the following types which references the code that you want to capture as a transaction:</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><code class="literal">Action</code></li><li class="listitem"><code class="literal">Action&lt;ITransaction&gt;</code></li><li class="listitem"><code class="literal">Func&lt;T&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,T&gt;</code></li><li class="listitem"><code class="literal">Func&lt;Task&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,Task&gt;</code></li><li class="listitem"><code class="literal">Func&lt;Task&lt;T&gt;&gt;</code></li><li class="listitem"><code class="literal">Func&lt;ITransaction,Task&lt;T&gt;&gt;</code></li></ul></div></li><li class="listitem"><code class="literal">supType</code> (optional): The subtype of the span</li><li class="listitem"><code class="literal">action</code> (optional): The action of the span</li></ul></div><p>The following code is the equivalent of the previous example from the <a class="xref" href="public-api.html#api-transaction-create-span" title="Span StartSpan(string name, string type, string subType = null, string action = null)edit"><code class="literal">Span StartSpan(string name, string type, string subType = null, string action = null)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></a> section with the convenient API. It automatically starts and ends the span and reports unhandled exceptions. The <code class="literal">s</code> parameter gives you access to the <code class="literal">ISpan</code> instance which represents the span that you just created.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">ITransaction transaction = Elastic.Apm.Agent.Tracer.CurrentTransaction;
 
 transaction.CaptureSpan("SampleSpan", Span.TypeDb, (s) =&gt;
 {
@@ -824,13 +774,15 @@ span =&gt;
     {
         span.Tags["foo"] = "bar";
         //application code that is captured as a span
-    });</pre></div><h4><a id="api-span-capture-exception"></a><code class="literal">void CaptureException(Exception e)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures an exception and reports it to the APM server.</p><h4><a id="api-span-capture-error"></a><code class="literal">void CaptureError(string message, string culprit, StackFrame[] frames)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures a custom error and reports it to the APM server.</p><p>This method is typically used when you want to report an error, but you don’t have an <code class="literal">Exception</code> instance.</p><h4><a id="api-span-end"></a><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Ends the span and schedules it to be reported to the APM Server.</p><p>It is illegal to call any methods on a span instance which has already ended.</p></div><div class="navfooter"><span class="prev"><a href="config-reporter.html">
+    });</pre></div><h4><a id="api-span-capture-exception"></a><code class="literal">void CaptureException(Exception e)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures an exception and reports it to the APM server.</p><h4><a id="api-span-capture-error"></a><code class="literal">void CaptureError(string message, string culprit, StackFrame[] frames)</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Captures a custom error and reports it to the APM server.</p><p>This method is typically used when you want to report an error, but you don’t have an <code class="literal">Exception</code> instance.</p><h4><a id="api-span-end"></a><code class="literal">void End()</code><a href="https://github.com/elastic/apm-agent-dotnet/edit/master/docs/public-api.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>Ends the span and schedules it to be reported to the APM Server.</p><p>It is illegal to call any methods on a span instance which has already ended.</p></div><div class="navfooter"><span class="prev"><a href="config-http.html">
               « 
-              Reporter configuration options</a>
+              HTTP configuration options</a>
            
         </span><span class="next">
            
-          </span></div>
+          <a href="release-notes.html">Release notes
+               »
+            </a></span></div>
 <!-- end body -->
 
             </div>

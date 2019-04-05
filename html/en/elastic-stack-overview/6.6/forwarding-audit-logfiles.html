@@ -694,7 +694,10 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elastic Stack Overview
+<div class="page_header">You are looking at documentation for an older release.
+Not what you want? See the
+<a href="../current/index.html">current release documentation</a>.
+</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elastic Stack Overview
       [6.6]
     </a></span> » <span class="breadcrumb-link"><a href="elasticsearch-security.html">Securing the Elastic Stack</a></span> » <span class="breadcrumb-link"><a href="auditing.html">Auditing security events</a></span> » <span class="breadcrumb-node">Forwarding audit logs to a remote cluster</span></div><div class="navheader"><span class="prev"><a href="auditing-search-queries.html">
               « 
@@ -704,7 +707,7 @@
            
           <a href="encrypting-communications.html">Encrypting communications
                »
-            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="forwarding-audit-logfiles"></a>Forwarding audit logs to a remote cluster<a href="https://github.com/elastic/elasticsearch/edit/6.6/x-pack/docs/en/security/auditing/forwarding-logs.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>When you are auditing security events, you can optionally store the logs in an
+            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="forwarding-audit-logfiles"></a>Forwarding audit logs to a remote cluster<a href="https://github.com/elastic/elasticsearch/edit/6.6/x-pack/docs/en/security/auditing/forwarding-logs.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>When you are auditing security events, you can optionally store the logs in an
 Elasticsearch index on a remote cluster.  The logs are sent to the remote cluster by
 using the <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/6.6/transport-client.html" target="_top">transport client</a>.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 Configure auditing such that the logs are stored in Elasticsearch rolling indices.

@@ -718,7 +718,13 @@ combination with those settings.</p><p>Example configuration:</p><div class="pre
 </p></td></tr></table></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration_options_3"></a>Configuration options<a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>The <code class="literal">docker</code> input supports the following configuration options plus the
 <a class="xref" href="filebeat-input-docker.html#filebeat-input-docker-common-options" title="Common options">Common options</a> described later.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="config-container-ids"></a><code class="literal">containers.ids</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The list of Docker container IDs to read logs from. Specify
 <code class="literal">containers.ids: '*'</code> to read from all containers.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_containers_path_literal"></a><code class="literal">containers.path</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The base path where Docker logs are located. The default
-is <code class="literal">/var/lib/docker/containers</code>.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_containers_stream_literal"></a><code class="literal">containers.stream</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Reads from the specified streams only: <code class="literal">all</code>, <code class="literal">stdout</code> or <code class="literal">stderr</code>. The default
+is <code class="literal">/var/lib/docker/containers</code>.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_containers_paths_literal"></a><code class="literal">containers.paths</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>The list of paths to read logs from. This can be used as an alternative to
+<code class="literal">containers.ids</code> for other runtimes that use the same logging format as docker
+but place their logs in different paths. For example when using CRI-O runtime in
+Kubernetes the following configuration can be used:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">filebeat.inputs:
+- type: docker
+  containers.paths:
+    - /var/log/pods/${data.kubernetes.pod.uid}/${data.kubernetes.container.name}/*.log</pre></div><p>When <code class="literal">containers.paths</code> is used, <code class="literal">containers.path</code> is ignored.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_containers_stream_literal"></a><code class="literal">containers.stream</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Reads from the specified streams only: <code class="literal">all</code>, <code class="literal">stdout</code> or <code class="literal">stderr</code>. The default
 is <code class="literal">all</code>.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_combine_partial_literal"></a><code class="literal">combine_partial</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Enable partial messages joining. Docker <code class="literal">json-file</code> driver splits log lines larger than 16k bytes,
 end of line (<code class="literal">\n</code>) is present for common lines in the resulting file, while it’s not the for the lines
 that have been split. <code class="literal">combine_partial</code> joins them back together when enabled. It is enabled by default.</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_cri_parse_flags_literal"></a><code class="literal">cri.parse_flags</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Enable CRI flags parsing from the log file. CRI uses flags to signal a partial line, enabling this will
@@ -732,11 +738,108 @@ all containers under the default Docker containers path:</p><div class="pre_wrap
       - "*"</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_literal_cri_force_literal"></a><code class="literal">cri.force</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4></div></div></div><p>Force CRI format parsing. This disables automatic format detection, use it when you know format is CRI
 to gain some performance. This is false by default.</p><h5><a id="_literal_encoding_literal_3"></a><code class="literal">encoding</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-common-harvester-options.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>The file encoding to use for reading data that contains international
 characters. See the encoding names <a class="ulink" href="http://www.w3.org/TR/encoding/" target="_top">recommended by
-the W3C for use in HTML5</a>.</p><p>Here are some sample encodings from W3C recommendation:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-plain, latin1, utf-8, utf-16be-bom, utf-16be, utf-16le, big5, gb18030,
-    gbk, hz-gb-2312,
+the W3C for use in HTML5</a>.</p><p>Valid encodings:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<code class="literal">plain</code>: plain ASCII encoding
 </li><li class="listitem">
-euc-kr, euc-jp, iso-2022-jp, shift-jis, and so on
+<code class="literal">utf-8</code> or <code class="literal">utf8</code>: UTF-8 encoding
+</li><li class="listitem">
+<code class="literal">gbk</code>: simplified Chinese charaters
+</li><li class="listitem">
+<code class="literal">iso8859-6e</code>: ISO8859-6E, Latin/Arabic
+</li><li class="listitem">
+<code class="literal">iso8859-6i</code>: ISO8859-6I, Latin/Arabic
+</li><li class="listitem">
+<code class="literal">iso8859-8e</code>: ISO8859-8E, Latin/Hebrew
+</li><li class="listitem">
+<code class="literal">iso8859-8i</code>: ISO8859-8I, Latin/Hebrew
+</li><li class="listitem">
+<code class="literal">iso8859-1</code>: ISO8859-1, Latin-1
+</li><li class="listitem">
+<code class="literal">iso8859-2</code>: ISO8859-2, Latin-2
+</li><li class="listitem">
+<code class="literal">iso8859-3</code>: ISO8859-3, Latin-3
+</li><li class="listitem">
+<code class="literal">iso8859-4</code>: ISO8859-4, Latin-4
+</li><li class="listitem">
+<code class="literal">iso8859-5</code>: ISO8859-5, Latin/Cyrillic
+</li><li class="listitem">
+<code class="literal">iso8859-6</code>: ISO8859-6, Latin/Arabic
+</li><li class="listitem">
+<code class="literal">iso8859-7</code>: ISO8859-7, Latin/Greek
+</li><li class="listitem">
+<code class="literal">iso8859-8</code>: ISO8859-8, Latin/Hebrew
+</li><li class="listitem">
+<code class="literal">iso8859-9</code>: ISO8859-9, Latin-5
+</li><li class="listitem">
+<code class="literal">iso8859-10</code>: ISO8859-10, Latin-6
+</li><li class="listitem">
+<code class="literal">iso8859-13</code>: ISO8859-13, Latin-7
+</li><li class="listitem">
+<code class="literal">iso8859-14</code>: ISO8859-14, Latin-8
+</li><li class="listitem">
+<code class="literal">iso8859-15</code>: ISO8859-15, Latin-9
+</li><li class="listitem">
+<code class="literal">iso8859-16</code>: ISO8859-16, Latin-10
+</li><li class="listitem">
+<code class="literal">cp437</code>: IBM CodePage 437
+</li><li class="listitem">
+<code class="literal">cp850</code>: IBM CodePage 850
+</li><li class="listitem">
+<code class="literal">cp852</code>: IBM CodePage 852
+</li><li class="listitem">
+<code class="literal">cp855</code>: IBM CodePage 855
+</li><li class="listitem">
+<code class="literal">cp858</code>: IBM CodePage 858
+</li><li class="listitem">
+<code class="literal">cp860</code>: IBM CodePage 860
+</li><li class="listitem">
+<code class="literal">cp862</code>: IBM CodePage 862
+</li><li class="listitem">
+<code class="literal">cp863</code>: IBM CodePage 863
+</li><li class="listitem">
+<code class="literal">cp865</code>: IBM CodePage 865
+</li><li class="listitem">
+<code class="literal">cp866</code>: IBM CodePage 866
+</li><li class="listitem">
+<code class="literal">ebcdic-037</code>: IBM CodePage 037
+</li><li class="listitem">
+<code class="literal">ebcdic-1040</code>: IBM CodePage 1140
+</li><li class="listitem">
+<code class="literal">ebcdic-1047</code>: IBM CodePage 1047
+</li><li class="listitem">
+<code class="literal">koi8r</code>: KOI8-R, Russian (Cyrillic)
+</li><li class="listitem">
+<code class="literal">koi8u</code>: KOI8-U, Ukranian (Cyrillic)
+</li><li class="listitem">
+<code class="literal">macintosh</code>: Macintosh encoding
+</li><li class="listitem">
+<code class="literal">macintosh-cyrillic</code>: Macintosh Cyrillic encoding
+</li><li class="listitem">
+<code class="literal">windows1250</code>: Windows1250, Central and Eastern European
+</li><li class="listitem">
+<code class="literal">windows1251</code>: Windows1251, Russian, Serbian (Cyrillic)
+</li><li class="listitem">
+<code class="literal">windows1252</code>: Windows1252, Legacy
+</li><li class="listitem">
+<code class="literal">windows1253</code>: Windows1253, Modern Greek
+</li><li class="listitem">
+<code class="literal">windows1254</code>: Windows1254, Turkish
+</li><li class="listitem">
+<code class="literal">windows1255</code>: Windows1255, Hebrew
+</li><li class="listitem">
+<code class="literal">windows1256</code>: Windows1256, Arabic
+</li><li class="listitem">
+<code class="literal">windows1257</code>: Windows1257, Estonian, Latvian, Lithuanian
+</li><li class="listitem">
+<code class="literal">windows1258</code>: Windows1258, Vietnamese
+</li><li class="listitem">
+<code class="literal">windows874</code>:  Windows874, ISO/IEC 8859-11, Latin/Thai
+</li><li class="listitem">
+<code class="literal">utf-16-bom</code>: UTF-16 with required BOM
+</li><li class="listitem">
+<code class="literal">utf-16be-bom</code>: big endian UTF-16 with required BOM
+</li><li class="listitem">
+<code class="literal">utf-16le-bom</code>: little endian UTF-16 with required BOM
 </li></ul></div><p>The <code class="literal">plain</code> encoding is special, because it does not validate or transform any input.</p><h5><a id="filebeat-input-docker-exclude-lines"></a><code class="literal">exclude_lines</code><a href="https://github.com/elastic/beats/edit/7.x/filebeat/docs/inputs/input-common-harvester-options.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h5><p>A list of regular expressions to match the lines that you want Filebeat to
 exclude. Filebeat drops any lines that match a regular expression in the
 list. By default, no lines are dropped. Empty lines are ignored.</p><p>If <a class="link" href="multiline-examples.html#multiline" title="Configuration optionsedit">multiline</a> settings are also specified, each multiline message

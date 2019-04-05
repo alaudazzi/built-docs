@@ -694,7 +694,10 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elasticsearch Reference
+<div class="page_header">You are looking at documentation for an older release.
+Not what you want? See the
+<a href="../current/index.html">current release documentation</a>.
+</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Elasticsearch Reference
       [6.6]
     </a></span> » <span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span> » <span class="breadcrumb-node">Configuring X-Pack Java Clients</span></div><div class="navheader"><span class="prev"><a href="auditing-settings.html">
               « 
@@ -704,7 +707,7 @@
            
           <a href="settings-xpack.html">X-Pack Settings in Elasticsearch
                »
-            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="setup-xpack-client"></a>Configuring X-Pack Java Clients<a href="https://github.com/elastic/elasticsearch/edit/6.6/docs/reference/settings/audit-settings.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>If you want to use a Java <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/6.6/transport-client.html" target="_top">transport client</a> with a
+            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="setup-xpack-client"></a>Configuring X-Pack Java Clients<a href="https://github.com/elastic/elasticsearch/edit/6.6/docs/reference/settings/audit-settings.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>If you want to use a Java <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/6.6/transport-client.html" target="_top">transport client</a> with a
 cluster where X-Pack is installed, then you must download and configure the
 X-Pack transport client.</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>We plan on deprecating the <code class="literal">TransportClient</code> in Elasticsearch 7.0 and removing
 it completely in 8.0. Instead, you should be using the
@@ -721,9 +724,9 @@ client completeness</a>.</p><p>Any missing APIs can always be implemented today 
 level Java REST Client</a> with JSON request and response bodies.</p></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 Add the X-Pack transport JAR file to your <span class="strong strong"><strong>CLASSPATH</strong></span>. You can download the X-Pack
 distribution and extract the JAR file manually or you can get it from the
-<a class="ulink" href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/6.6.1/x-pack-transport-6.6.1.jar" target="_top">Elasticsearc Maven repository</a>.
+<a class="ulink" href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/6.6.2/x-pack-transport-6.6.2.jar" target="_top">Elasticsearc Maven repository</a>.
 As with any dependency, you will also need its transitive dependencies. Refer to the
-<a class="ulink" href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/6.6.1/x-pack-transport-6.6.1.pom" target="_top">X-Pack POM file
+<a class="ulink" href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/6.6.2/x-pack-transport-6.6.2.pom" target="_top">X-Pack POM file
 for your version</a> when downloading for offline usage.
 </li><li class="listitem"><p class="simpara">
 If you are using Maven, you need to add the X-Pack JAR file as a dependency in

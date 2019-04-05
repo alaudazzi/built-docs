@@ -807,7 +807,7 @@ Elasticsearch to wait for responses from shards. Set to 0 to disable.
 <span class="strong strong"><strong>Default: false</strong></span> Time in milliseconds between
 requests to check Elasticsearch for an updated list of nodes.
 </dd><dt><span class="term">
-<code class="literal">elasticsearch.sniffOnConectionFault:</code>
+<code class="literal">elasticsearch.sniffOnConnectionFault:</code>
 </span></dt><dd>
 <span class="strong strong"><strong>Default: false</strong></span> Update the list of
 Elasticsearch nodes immediately following a connection fault.
@@ -866,6 +866,11 @@ password that the Kibana server uses to perform maintenance on the Kibana index
 at startup. Your Kibana users still need to authenticate with Elasticsearch,
 which is proxied through the Kibana server.
 </dd><dt><span class="term">
+<code class="literal">interpreter.enableInVisualize</code>
+</span></dt><dd>
+<span class="strong strong"><strong>Default: true</strong></span> Enables use of interpreter in
+Visualize.
+</dd><dt><span class="term">
 <code class="literal">kibana.defaultAppId:</code>
 </span></dt><dd>
 <span class="strong strong"><strong>Default: "discover"</strong></span> The default application to load.
@@ -874,7 +879,8 @@ which is proxied through the Kibana server.
 </span></dt><dd>
 <span class="strong strong"><strong>Default: ".kibana"</strong></span> Kibana uses an index in Elasticsearch to
 store saved searches, visualizations and dashboards. Kibana creates a new index
-if the index doesn’t already exist.
+if the index doesn’t already exist. If you configure a custom index, the name must
+be lowercase, and conform to Elasticsearch <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.x/indices-create-index.html" target="_top">index name limitations</a>.
 </dd><dt><span class="term">
 <code class="literal">logging.dest:</code>
 </span></dt><dd>
@@ -893,9 +899,9 @@ suppress all logging output.
 </dd><dt><span class="term">
 <code class="literal">logging.timezone</code>
 </span></dt><dd>
-<span class="strong strong"><strong>Default: UTC</strong></span> Set to the canonical timezone id (e.g.
-<code class="literal">US/Pacific</code>) to log events using that timezone. A list of timezones can be
-referenced at <a class="ulink" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_top">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+<span class="strong strong"><strong>Default: UTC</strong></span> Set to the canonical timezone id
+(for example, <code class="literal">America/Los_Angeles</code>) to log events using that timezone. A list of timezones can
+be referenced at <a class="ulink" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_top">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
 </dd><dt><span class="term">
 <a id="logging-verbose"></a><code class="literal">logging.verbose:</code>
 </span></dt><dd>
@@ -1114,6 +1120,10 @@ disable the License Management user interface.
 </span></dt><dd>
 <span class="strong strong"><strong>Default: true</strong></span> Set this value to false to disable the
 Rollup user interface.
+</dd><dt><span class="term">
+<code class="literal">i18n.locale</code>
+</span></dt><dd>
+<span class="strong strong"><strong>Default: en</strong></span> Set this value to change the Kibana interface language. Valid locales are: <code class="literal">en</code>, <code class="literal">zh-CN</code>.
 </dd></dl></div></div><div class="navfooter"><span class="prev"><a href="start-stop.html">
               « 
               Starting and stopping Kibana</a>

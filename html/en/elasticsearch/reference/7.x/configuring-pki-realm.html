@@ -707,7 +707,7 @@ Not what you want? See the
            
           <a href="configuring-saml-realm.html">Configuring a SAML realm
                »
-            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="configuring-pki-realm"></a>Configuring a PKI realm<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/security/securing-communications/enabling-cipher-suites.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>You can configure Elasticsearch to use Public Key Infrastructure (PKI) certificates
+            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="configuring-pki-realm"></a>Configuring a PKI realm<a href="https://github.com/elastic/elasticsearch/edit/7.x/x-pack/docs/en/security/authentication/configuring-pki-realm.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>You can configure Elasticsearch to use Public Key Infrastructure (PKI) certificates
 to authenticate users. This requires clients to present X.509 certificates.</p><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>You cannot use PKI certificates to authenticate users in Kibana.</p></div></div><p>To use PKI in Elasticsearch, you configure a PKI realm, enable client authentication on
 the desired network layers (transport or http), and map the Distinguished Names
 (DNs) from the user certificates to roles in the
@@ -791,15 +791,15 @@ For example, the following mapping configuration maps <code class="literal">John
 {
   "roles" : [ "user" ],
   "rules" : { "field" : {
-    "dn" : "cn=John Doe,ou=example,o=com" <a id="CO34-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+    "dn" : "cn=John Doe,ou=example,o=com" <a id="CO27-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
   } },
   "enabled": true
-}</pre></div><div class="console_widget" data-snippet="snippets/configuring-pki-realm/1.json"></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO34-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+}</pre></div><div class="console_widget" data-snippet="snippets/configuring-pki-realm/1.json"></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO27-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The distinguished name (DN) of a PKI user.
-</p></td></tr></table></div><p class="simpara">Or, alternatively, configured in a role-mapping file:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">user: <a id="CO35-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-  - "cn=John Doe,ou=example,o=com" <a id="CO35-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span></pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO35-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr></table></div><p class="simpara">Or, alternatively, configured in a role-mapping file:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">user: <a id="CO28-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+  - "cn=John Doe,ou=example,o=com" <a id="CO28-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span></pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The name of a role.
-</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO35-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
+</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-2"><span><img src="images/icons/callouts/2.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
 The distinguished name (DN) of a PKI user.
 </p></td></tr></table></div><p class="simpara">The distinguished name for a PKI user follows X.500 naming conventions which
 place the most specific fields (like <code class="literal">cn</code> or <code class="literal">uid</code>) at the beginning of the

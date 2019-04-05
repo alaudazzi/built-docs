@@ -707,7 +707,7 @@ Not what you want? See the
            
           <a href="auditing.html">Auditing security events
                »
-            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="custom-roles-authorization"></a>Customizing roles and authorization<a href="https://github.com/elastic/elasticsearch/edit/7.x/x-pack/docs/en/security/authorization/custom-roles-provider.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>If you need to retrieve user roles from a system not supported out-of-the-box
+            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="custom-roles-authorization"></a>Customizing roles and authorization<a href="https://github.com/elastic/elasticsearch/edit/7.x/x-pack/docs/en/security/authorization/custom-roles-provider.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>If you need to retrieve user roles from a system not supported out-of-the-box
 or if the authorization system that is provided by the Elasticsearch security features
 does not meet your needs, a SPI loaded security extension can be implemented to
 customize role retrieval and/or the authorization system. The SPI loaded
@@ -752,7 +752,7 @@ public AuthorizationEngine getAuthorizationEngine(Settings settings) {
 }</pre></div><p class="simpara">The <code class="literal">getAuthorizationEngine</code> method is used to provide the authorization engine
 implementation.</p></li></ol></div><p>Sample code that illustrates the structure and implementation of a custom
 authorization engine is provided in the
-<a class="ulink" href="https://github.com/elastic/elasticsearch/tree/master/plugin/examples/security-example-authorization-engine" target="_top">elasticsearch</a>
+<a class="ulink" href="https://github.com/elastic/elasticsearch/tree/master/plugins/examples/security-authorization-engine" target="_top">elasticsearch</a>
 repository on GitHub. You can use this code as a starting point for creating your
 own authorization engine.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="packing-extension-plugin"></a>Implement an elasticsearch plugin<a href="https://github.com/elastic/elasticsearch/edit/7.x/x-pack/docs/en/security/authorization/custom-roles-provider.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>In order to register the security extension for your custom roles provider or
 authorization engine, you need to also implement an elasticsearch plugin that

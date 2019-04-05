@@ -707,7 +707,7 @@ Not what you want? See the
            
           <a href="certutil.html">elasticsearch-certutil
                »
-            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="certgen"></a>elasticsearch-certgen<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><h3>Deprecated in 6.1. </h3><p>
+            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="certgen"></a>elasticsearch-certgen<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><h3>Deprecated in 6.1. </h3><p>
 Replaced by <a class="link" href="certutil.html" title="elasticsearch-certutil"><code class="literal">elasticsearch-certutil</code></a>.
 </p></div></div><p>The <code class="literal">elasticsearch-certgen</code> command simplifies the creation of certificate
 authorities (CA), certificate signing requests (CSR), and signed certificates
@@ -717,7 +717,7 @@ need to replace CAs, CSRs, or certificates that it created.</p><h3><a id="_synop
 [--keysize &lt;bits&gt;] [--pass &lt;password&gt;] [--p12 &lt;password&gt;])
 | [--csr])
 [-E &lt;KeyValuePair&gt;] [-h, --help] [--in &lt;input_file&gt;] [--out &lt;output_file&gt;]
-([-s, --silent] | [-v, --verbose])</pre></div><h3><a id="_description_98"></a>Description<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>By default, the command runs in interactive mode and you are prompted for
+([-s, --silent] | [-v, --verbose])</pre></div><h3><a id="_description_97"></a>Description<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>By default, the command runs in interactive mode and you are prompted for
 information about each instance. An instance is any piece of the Elastic Stack
 that requires a Transport Layer Security (TLS) or SSL certificate. Depending on
 your configuration, Elasticsearch, Logstash, Kibana, and Beats might all require a
@@ -735,7 +735,7 @@ behavior, the certificate and private key are included in the output file. If
 you chose to generate CSRs, you should provide them to your commercial or
 organization-specific certificate authority to obtain signed certificates. The
 signed certificates must be in PEM format to work with the Elastic Stack
-security features.</p><h3><a id="_parameters_11"></a>Parameters<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+security features.</p><h3><a id="_parameters_12"></a>Parameters<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">--cert &lt;cert_file&gt;</code>
 </span></dt><dd>
 Specifies to generate new instance certificates and keys
@@ -805,7 +805,7 @@ Shows minimal output.
 <code class="literal">-v, --verbose</code>
 </span></dt><dd>
 Shows verbose output.
-</dd></dl></div><h3><a id="_examples_117"></a>Examples<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><h4><a id="certgen-silent"></a>Using <code class="literal">elasticsearch-certgen</code> in Silent Mode<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>To use the silent mode of operation, you must create a YAML file that contains
+</dd></dl></div><h3><a id="_examples_122"></a>Examples<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><h4><a id="certgen-silent"></a>Using <code class="literal">elasticsearch-certgen</code> in Silent Mode<a href="https://github.com/elastic/elasticsearch/edit/7.x/docs/reference/commands/certgen.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h4><p>To use the silent mode of operation, you must create a YAML file that contains
 information about the instances. It must match the following format:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">instances:
   - name: "node1" <a id="CO557-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
     ip: <a id="CO557-2"></a><span><img src="images/icons/callouts/2.png" alt="" /></span>

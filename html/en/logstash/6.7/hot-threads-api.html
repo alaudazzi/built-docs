@@ -694,10 +694,7 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="page_header">You are looking at preliminary documentation for a future release.
-Not what you want? See the
-<a href="../current/index.html">current release documentation</a>.
-</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Logstash Reference
+<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Logstash Reference
       [6.7]
     </a></span> » <span class="breadcrumb-link"><a href="monitoring.html">Monitoring APIs</a></span> » <span class="breadcrumb-node">Hot Threads API</span></div><div class="navheader"><span class="prev"><a href="node-stats-api.html">
               « 
@@ -718,7 +715,7 @@ Logstash.</p><p>Example response:</p><div class="pre_wrapper"><pre class="progra
       "name" : "Ruby-0-Thread-7",
       "percent_of_cpu_time" : 0.0,
       "state" : "timed_waiting",
-      "path" : "/path/to/logstash-6.7.0/vendor/bundle/jruby/1.9/gems/puma-2.16.0-java/lib/puma/thread_pool.rb:187",
+      "path" : "/path/to/logstash-6.7.1/vendor/bundle/jruby/1.9/gems/puma-2.16.0-java/lib/puma/thread_pool.rb:187",
       "traces" : [ "java.lang.Object.wait(Native Method)", "org.jruby.RubyThread.sleep(RubyThread.java:1002)", "org.jruby.RubyKernel.sleep(RubyKernel.java:803)" ]
     }, {
       "name" : "[test2]&gt;worker3",
@@ -761,7 +758,7 @@ Logstash monitoring APIs.</p><p>You can use the <code class="literal">?human</co
  Hot threads at 2017-06-06T18:31:17-07:00, busiestThreads=3:
  ================================================================================
  0.0 % of cpu usage, state: timed_waiting, thread name: 'Ruby-0-Thread-7'
- /path/to/logstash-6.7.0/vendor/bundle/jruby/1.9/gems/puma-2.16.0-java/lib/puma/thread_pool.rb:187
+ /path/to/logstash-6.7.1/vendor/bundle/jruby/1.9/gems/puma-2.16.0-java/lib/puma/thread_pool.rb:187
          java.lang.Object.wait(Native Method)
          org.jruby.RubyThread.sleep(RubyThread.java:1002)
          org.jruby.RubyKernel.sleep(RubyKernel.java:803)

@@ -707,7 +707,7 @@ Not what you want? See the
            
           <a href="defining-roles.html">Defining roles
                »
-            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="built-in-roles"></a>Built-in roles<a href="https://github.com/elastic/stack-docs/edit/7.x/docs/en/stack/security/authorization/built-in-roles.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>The Elastic Stack security features apply a default role to all users, including
+            </a></span></div><div class="xpack section"><div class="titlepage"><div><div><h2 class="title"><a id="built-in-roles"></a>Built-in roles<a href="https://github.com/elastic/stack-docs/edit/7.x/docs/en/stack/security/authorization/built-in-roles.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>The Elastic Stack security features apply a default role to all users, including
 <a class="link" href="anonymous-access.html" title="Enabling anonymous access">anonymous users</a>. The default role enables users to access
 the authenticate endpoint, change their own passwords, and get information about
 themselves.</p><p>There is also a set of built-in roles you can explicitly assign to users. These
@@ -792,14 +792,16 @@ suitable for use within a Logstash pipeline.
 </li></ul></div></div></div></dd><dt><span class="term">
 <a id="built-in-roles-ml-admin"></a> <code class="literal">machine_learning_admin</code>
 </span></dt><dd>
-Grants <code class="literal">manage_ml</code> cluster privileges and read access to the <code class="literal">.ml-*</code> indices.
+Grants <code class="literal">manage_ml</code> cluster privileges, read access to <code class="literal">.ml-anomalies*</code>,
+<code class="literal">.ml-notifications*</code>, <code class="literal">.ml-state*</code>, <code class="literal">.ml-meta*</code> indices and write access to
+<code class="literal">.ml-annotations*</code> indices.
 </dd><dt><span class="term">
 <a id="built-in-roles-ml-user"></a> <code class="literal">machine_learning_user</code>
 </span></dt><dd>
 Grants the minimum privileges required to view machine learning configuration,
-status, and results. This role grants <code class="literal">monitor_ml</code> cluster privileges and
-read access to the <code class="literal">.ml-notifications</code> and <code class="literal">.ml-anomalies*</code> indices,
-which store machine learning results.
+status, and work with results. This role grants <code class="literal">monitor_ml</code> cluster privileges,
+read access to the <code class="literal">.ml-notifications</code> and <code class="literal">.ml-anomalies*</code> indices
+(which store machine learning results), and write access to <code class="literal">.ml-annotations*</code> indices.
 </dd><dt><span class="term">
 <a id="built-in-roles-monitoring-user"></a> <code class="literal">monitoring_user</code>
 </span></dt><dd>

@@ -743,7 +743,9 @@ See <a class="xref" href="common-options.html#fuzziness" title="Fuzzinessedit">F
 If the fuzzy option is set the query will use <code class="literal">top_terms_blended_freqs_${max_expansions}</code>
 as its <a class="link" href="query-dsl-multi-term-rewrite.html" title="Multi Term Query Rewrite">rewrite method</a> the <code class="literal">fuzzy_rewrite</code> parameter allows to control how the query will get
 rewritten.</p><p>Fuzzy transpositions (<code class="literal">ab</code> → <code class="literal">ba</code>) are allowed by default but can be disabled
-by setting <code class="literal">fuzzy_transpositions</code> to <code class="literal">false</code>.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-js">GET /_search
+by setting <code class="literal">fuzzy_transpositions</code> to <code class="literal">false</code>.</p><p>Note that fuzzy matching is not applied to terms with synonyms, as under the hood
+these terms are expanded to a special synonym query that blends term frequencies,
+which does not support fuzzy expansion.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-js">GET /_search
 {
     "query": {
         "match" : {
@@ -809,8 +811,7 @@ process. It does not support field name prefixes, wildcard characters,
 or other "advanced" features. For this reason, chances of it failing are
 very small / non existent, and it provides an excellent behavior when it
 comes to just analyze and run that text as a query behavior (which is
-usually what a text search box does). Also, the <a class="link" href="query-dsl-match-query-phrase-prefix.html" title="Match Phrase Prefix Query"><code class="literal">match_phrase_prefix</code></a>
-type can provide a great "as you type" behavior to automatically load search results.</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="full-text-queries.html">
+usually what a text search box does).</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="full-text-queries.html">
               « 
               Full text queries</a>
            

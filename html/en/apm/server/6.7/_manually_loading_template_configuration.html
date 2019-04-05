@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Manually loading template configuration
         | APM Server Reference [6.7]
       | Elastic
-    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="APM Server Reference [6.7]" /><link rel="up" href="configuration-template.html" title="Load the Elasticsearch index template" /><link rel="prev" href="configuration-template.html" title="Load the Elasticsearch index template" /><link rel="next" href="configuration-logging.html" title="Configure logging" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/APM Server/Reference/6.7" /><meta name="DC.subject" content="APM" /><meta name="DC.identifier" content="6.7" />
+    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="APM Server Reference [6.7]" /><link rel="up" href="configuration-template.html" title="Load the Elasticsearch index template" /><link rel="prev" href="configuration-template.html" title="Load the Elasticsearch index template" /><link rel="next" href="manual-ilm-setup.html" title="Manual index lifecycle management" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/APM Server/Reference/6.7" /><meta name="DC.subject" content="APM" /><meta name="DC.identifier" content="6.7" />
     
 
     
@@ -694,10 +694,7 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="page_header">You are looking at preliminary documentation for a future release.
-Not what you want? See the
-<a href="../current/index.html">current release documentation</a>.
-</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">APM Server Reference
+<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">APM Server Reference
       [6.7]
     </a></span> » <span class="breadcrumb-link"><a href="configuring-howto-apm-server.html">Configuring APM Server</a></span> » <span class="breadcrumb-link"><a href="configuration-template.html">Load the Elasticsearch index template</a></span> » <span class="breadcrumb-node">Manually loading template configuration</span></div><div class="navheader"><span class="prev"><a href="configuration-template.html">
               « 
@@ -705,7 +702,7 @@ Not what you want? See the
            
         </span><span class="next">
            
-          <a href="configuration-logging.html">Configure logging
+          <a href="manual-ilm-setup.html">Manual index lifecycle management
                »
             </a></span></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a id="_manually_loading_template_configuration"></a>Manually loading template configuration<a href="https://github.com/elastic/apm-server/edit/6.7/docs/template-config.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>In Elasticsearch, <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.7/indices-templates.html" target="_top">index
 templates</a> are used to define settings and mappings that determine how fields
@@ -734,7 +731,7 @@ APM Server to do so.</p></li><li class="listitem"><p class="simpara">
 <a class="link" href="_manually_loading_template_configuration.html#load-template-manually" title="Load the template manually">load the template manually</a>.</p></li><li class="listitem"><p class="simpara">
 <span class="strong strong"><strong>Change the index name</strong></span>
 </p><p class="simpara">By default, APM Server writes events to indices named
-<code class="literal">apm-server-6.7.0-yyyy.MM.dd</code>, where <code class="literal">yyyy.MM.dd</code> is the date when the
+<code class="literal">apm-server-6.7.1-yyyy.MM.dd</code>, where <code class="literal">yyyy.MM.dd</code> is the date when the
 events were indexed. To use a different name, you set the
 <a class="link" href="elasticsearch-output.html#index-option-es" title="index"><code class="literal">index</code></a> option in the Elasticsearch output. The value
 that you specify should include the root name of the index plus version and
@@ -760,15 +757,15 @@ the pattern.</p></div></div><div class="section"><div class="titlepage"><div><di
 Elasticsearch, you can export the index template to a file, move it to a
 machine that does have connectivity, and then install the template manually.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
 Export the index template:
-</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">PS &gt; .\apm-server.exe export template --es.version 6.7.0 | Out-File -Encoding UTF8 apm-server.template.json</pre></div></li><li class="listitem"><p class="simpara">
+</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">PS &gt; .\apm-server.exe export template --es.version 6.7.1 | Out-File -Encoding UTF8 apm-server.template.json</pre></div></li><li class="listitem"><p class="simpara">
 Install the template:
-</p><p class="simpara"><span class="strong strong"><strong>deb, rpm, and mac:</strong></span></p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">curl -XPUT -H 'Content-Type: application/json' http://localhost:9200/_template/apm-server-6.7.0 -d@apm-server.template.json</pre></div><p class="simpara"><span class="strong strong"><strong>win:</strong></span></p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">PS &gt; Invoke-RestMethod -Method Put -ContentType "application/json" -InFile apm-server.template.json -Uri http://localhost:9200/_template/apm-server-6.7.0</pre></div></li></ol></div></div></div><div class="navfooter"><span class="prev"><a href="configuration-template.html">
+</p><p class="simpara"><span class="strong strong"><strong>deb, rpm, and mac:</strong></span></p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">curl -XPUT -H 'Content-Type: application/json' http://localhost:9200/_template/apm-server-6.7.1 -d@apm-server.template.json</pre></div><p class="simpara"><span class="strong strong"><strong>win:</strong></span></p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-sh">PS &gt; Invoke-RestMethod -Method Put -ContentType "application/json" -InFile apm-server.template.json -Uri http://localhost:9200/_template/apm-server-6.7.1</pre></div></li></ol></div></div></div><div class="navfooter"><span class="prev"><a href="configuration-template.html">
               « 
               Load the Elasticsearch index template</a>
            
         </span><span class="next">
            
-          <a href="configuration-logging.html">Configure logging
+          <a href="manual-ilm-setup.html">Manual index lifecycle management
                »
             </a></span></div>
 <!-- end body -->

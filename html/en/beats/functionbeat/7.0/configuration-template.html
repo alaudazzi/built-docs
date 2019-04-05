@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Load the Elasticsearch index template
         | Functionbeat Reference [7.0]
       | Elastic
-    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Functionbeat Reference [7.0]" /><link rel="up" href="configuring-howto-functionbeat.html" title="Configuring Functionbeat" /><link rel="prev" href="setup-kibana-endpoint.html" title="Set up the Kibana endpoint" /><link rel="next" href="configuration-logging.html" title="Configure logging" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/Functionbeat/Reference/7.0" /><meta name="DC.subject" content="Functionbeat" /><meta name="DC.identifier" content="7.0" />
+    </title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Functionbeat Reference [7.0]" /><link rel="up" href="configuring-howto-functionbeat.html" title="Configuring Functionbeat" /><link rel="prev" href="setup-kibana-endpoint.html" title="Configure the Kibana endpoint" /><link rel="next" href="configuration-logging.html" title="Configure logging" /><meta name="description" content="Get started with the documentation for Elasticsearch, Kibana, Logstash, Beats, X-Pack, Elastic Cloud, Elasticsearch for Apache Hadoop, and our language clients." /><meta name="DC.type" content="Learn/Docs/Functionbeat/Reference/7.0" /><meta name="DC.subject" content="Functionbeat" /><meta name="DC.identifier" content="7.0" />
     
 
     
@@ -701,13 +701,13 @@ Not what you want? See the
       [7.0]
     </a></span> » <span class="breadcrumb-link"><a href="configuring-howto-functionbeat.html">Configuring Functionbeat</a></span> » <span class="breadcrumb-node">Load the Elasticsearch index template</span></div><div class="navheader"><span class="prev"><a href="setup-kibana-endpoint.html">
               « 
-              Set up the Kibana endpoint</a>
+              Configure the Kibana endpoint</a>
            
         </span><span class="next">
            
           <a href="configuration-logging.html">Configure logging
                »
-            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-template"></a>Load the Elasticsearch index template<a href="https://github.com/elastic/beats/edit/7.0/libbeat/docs/template-config.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h2></div></div></div><p>The <code class="literal">setup.template</code> section of the <code class="literal">functionbeat.yml</code> config file specifies
+            </a></span></div><div class="xpack chapter"><div class="titlepage"><div><div><h2 class="title"><a id="configuration-template"></a>Load the Elasticsearch index template<a href="https://github.com/elastic/beats/edit/7.0/libbeat/docs/template-config.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h2></div></div></div><p>The <code class="literal">setup.template</code> section of the <code class="literal">functionbeat.yml</code> config file specifies
 the <a class="ulink" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.0/indices-templates.html" target="_top">index template</a> to use for setting
 mappings in Elasticsearch. If template loading is enabled (the default),
 Functionbeat loads the index template automatically after successfully
@@ -754,7 +754,7 @@ setup.template.fields: "fields.yml"
 setup.template.overwrite: false
 setup.template.settings:
   index.number_of_shards: 1
-  index.number_of_replicas: 1</pre></div></dd></dl></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>If you want to use <a class="ulink" href="https://www.elastic.co/guide/en/elastic-stack-overview/7.0/xpack-ccr.html" target="_top">cross cluster replication</a> to replicate Functionbeat
+  index.number_of_replicas: 1</pre></div></dd></dl></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>If you want to use <a class="ulink" href="https://www.elastic.co/guide/en/elastic-stack-overview/7.0/xpack-ccr.html" target="_top">cross-cluster replication</a> to replicate Functionbeat
 indices to another cluster, you will need to add additional template settings to
 <a class="ulink" href="https://www.elastic.co/guide/en/elastic-stack-overview/7.0/ccr-requirements.html#ccr-overview-beats" target="_top">enable soft deletes</a> on the
 underlying indices.</p></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -795,7 +795,7 @@ setup.template.json.path: "template.json"
 setup.template.json.name: "template-name</pre></div></dd></dl></div><div class="note admon"><div class="icon"><img alt="Note" src="images/icons/note.png" /></div><div class="admon_content"><p>If the JSON template is used, the <code class="literal">fields.yml</code> is skipped for the template
 generation.</p></div></div></div><div class="navfooter"><span class="prev"><a href="setup-kibana-endpoint.html">
               « 
-              Set up the Kibana endpoint</a>
+              Configure the Kibana endpoint</a>
            
         </span><span class="next">
            
