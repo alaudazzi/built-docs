@@ -733,21 +733,25 @@ specific index module:</p><div class="variablelist"><dl class="variablelist"><dt
     part of the cluster.
 </dd><dt><span class="term">
 <code class="literal">index.shard.check_on_startup</code>
-</span></dt><dd><p class="simpara">Whether or not shards should be checked for corruption before opening. When
-corruption is detected, it will prevent the shard from being opened. Accepts:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+</span></dt><dd><p class="simpara">
+Whether or not shards should be checked for corruption before opening. When
+corruption is detected, it will prevent the shard from being opened.
+Accepts:
+</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">false</code>
 </span></dt><dd>
-    (default) Don’t check for corruption when opening a shard.
+(default) Don’t check for corruption when opening a shard.
 </dd><dt><span class="term">
 <code class="literal">checksum</code>
 </span></dt><dd>
-    Check for physical corruption.
+Check for physical corruption.
 </dd><dt><span class="term">
 <code class="literal">true</code>
-</span></dt><dd>
-    Check for both physical and logical corruption. This is much more
-    expensive in terms of CPU and memory usage.
-</dd></dl></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Expert only. Checking shards may take a lot of time on large indices.</p></div></div></dd><dt><span class="term">
+</span></dt><dd><p class="simpara">
+Check for both physical and logical corruption. This is much more
+expensive in terms of CPU and memory usage.
+</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Expert only. Checking shards may take a lot of time on large
+indices.</p></div></div></dd></dl></div></dd><dt><span class="term">
 <a id="index-codec"></a> <code class="literal">index.codec</code>
 </span></dt><dd>
     The <code class="literal">default</code> value compresses stored data with LZ4
@@ -964,6 +968,10 @@ specific index module:</p><div class="variablelist"><dl class="variablelist"><dt
 <a class="link" href="index-modules-translog.html" title="Translog">Translog</a>
 </span></dt><dd>
     Control over the transaction log and background flush operations.
+</dd></dl></div><h3><a id="_phrase_role_xpack_x_pack_index_settings_phrase"></a><span class="xpack xpack">X-Pack index settings</span><a href="https://github.com/elastic/elasticsearch/edit/master/docs/reference/index-modules.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a><a class="xpack_tag" href="/subscriptions"></a></h3><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+<a class="link" href="ilm-settings.html" title="Index lifecycle management settings">Index lifecycle management</a>
+</span></dt><dd>
+    Specify the lifecycle policy and rollover alias for an index.
 </dd></dl></div></div></div><div class="navfooter"><span class="prev"><a href="modules-cross-cluster-search.html">
               « 
               Cross-cluster search</a>

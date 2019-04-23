@@ -733,27 +733,29 @@ specific index module:</p><div class="variablelist"><dl class="variablelist"><dt
     part of the cluster.
 </dd><dt><span class="term">
 <code class="literal">index.shard.check_on_startup</code>
-</span></dt><dd><p class="simpara">Whether or not shards should be checked for corruption before opening. When
-corruption is detected, it will prevent the shard from being opened. Accepts:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+</span></dt><dd>
+Whether or not shards should be checked for corruption before opening. When
+corruption is detected, it will prevent the shard from being opened. Accepts:
+</dd><dt><span class="term">
 <code class="literal">false</code>
 </span></dt><dd>
-    (default) Don’t check for corruption when opening a shard.
+(default) Don’t check for corruption when opening a shard.
 </dd><dt><span class="term">
 <code class="literal">checksum</code>
 </span></dt><dd>
-    Check for physical corruption.
+Check for physical corruption.
 </dd><dt><span class="term">
 <code class="literal">true</code>
 </span></dt><dd>
-    Check for both physical and logical corruption. This is much more
-    expensive in terms of CPU and memory usage.
+Check for both physical and logical corruption. This is much more
+expensive in terms of CPU and memory usage.
 </dd><dt><span class="term">
 <code class="literal">fix</code>
-</span></dt><dd>
-    Check for both physical and logical corruption.  Segments that were reported
-    as corrupted will be automatically removed. This option <span class="strong strong"><strong>may result in data loss</strong></span>.
-    Use with extreme caution!
-</dd></dl></div><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Expert only. Checking shards may take a lot of time on large indices.</p></div></div></dd><dt><span class="term">
+</span></dt><dd><p class="simpara">
+Check for both physical and logical corruption.  Segments that were
+reported as corrupted will be automatically removed. This option <span class="strong strong"><strong>may result in
+data loss</strong></span>. Use with extreme caution!
+</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Expert only. Checking shards may take a lot of time on large indices.</p></div></div></dd><dt><span class="term">
 <a id="index-codec"></a> <code class="literal">index.codec</code>
 </span></dt><dd>
     The <code class="literal">default</code> value compresses stored data with LZ4
@@ -770,6 +772,11 @@ corruption is detected, it will prevent the shard from being opened. Accepts:</p
     Defaults to 1 and can only be set at index creation time. This value must be less
     than the <code class="literal">index.number_of_shards</code> unless the <code class="literal">index.number_of_shards</code> value is also 1.
     See <a class="xref" href="mapping-routing-field.html#routing-index-partition" title="Routing to an index partition">Routing to an index partition</a> for more details about how this setting is used.
+</dd><dt><span class="term">
+<a id="load-fixed-bitset-filters-eagerly"></a> <code class="literal">index.load_fixed_bitset_filters_eagerly</code>
+</span></dt><dd>
+    Indicates whether <a class="link" href="query-filter-context.html" title="Query and filter context">cached filters</a> are pre-loaded for
+    nested queries. Possible values are <code class="literal">true</code> (default) and <code class="literal">false</code>.
 </dd></dl></div><h3><a id="dynamic-index-settings"></a>Dynamic index settings<a href="https://github.com/elastic/elasticsearch/edit/6.0/docs/reference/index-modules.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3><p>Below is a list of all <span class="emphasis"><em>dynamic</em></span> index settings that are not associated with any
 specific index module:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <code class="literal">index.number_of_replicas</code>

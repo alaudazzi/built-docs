@@ -694,10 +694,7 @@
 				
             <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
             <!-- start body -->
-<div class="page_header">You are looking at preliminary documentation for a future release.
-Not what you want? See the
-<a href="../current/index.html">current release documentation</a>.
-</div><div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Java API
+<div class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">Java API
       [7.0]
     </a></span> » <span class="breadcrumb-link"><a href="java-aggs.html">Aggregations</a></span> » <span class="breadcrumb-node">Metrics aggregations</span></div><div class="navheader"><span class="prev"><a href="_structuring_aggregations.html">
               « 
@@ -832,7 +829,7 @@ with Java API.</p><div class="section"><div class="titlepage"><div><div><h4 clas
         .terms("agg").field("gender")
         .subAggregation(
             AggregationBuilders.topHits("top")
-        );</pre></div><p>You can use most of the options available for standard search such as <code class="literal">from</code>, <code class="literal">size</code>, <code class="literal">sort</code>, <code class="literal">highlight</code>, <code class="literal">explain</code>…</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-java">AggregationBuilder aggregation =
+        );</pre></div><p>You can use most of the options available for standard search such as <code class="literal">from</code>, <code class="literal">size</code>, <code class="literal">sort</code>, <code class="literal">highlight</code>, <code class="literal">explain</code>…​</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-java">AggregationBuilder aggregation =
     AggregationBuilders
         .terms("agg").field("gender")
         .subAggregation(

@@ -744,9 +744,7 @@ and is responsible for serializing the request and response types that are part 
 var connectionSettings = new ConnectionSettings(
     pool,
     sourceSerializer: (builtin, settings) =&gt; new VanillaSerializer()); <a id="CO39-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-var client = new ElasticClient(connectionSettings);</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO39-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-what the Func?
-</p></td></tr></table></div><p>If implementing <code class="literal">IElasticsearchSerializer</code> is enough, why do we need to provide an instance wrapped in a factory <code class="literal">Func</code>?</p><p>There are various cases where you might have a POCO type that contains a NEST type as one of its properties. For example,
+var client = new ElasticClient(connectionSettings);</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO39-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>what the Func?</p></td></tr></table></div><p>If implementing <code class="literal">IElasticsearchSerializer</code> is enough, why do we need to provide an instance wrapped in a factory <code class="literal">Func</code>?</p><p>There are various cases where you might have a POCO type that contains a NEST type as one of its properties. For example,
 consider if you want to use percolation; you need to store Elasticsearch queries as part of the <code class="literal">_source</code> of your document,
 which means you need to have a POCO that looks something like this</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">public class MyPercolationDocument
 {
@@ -773,13 +771,10 @@ var connectionSettings =
         resolver =&gt; resolver.NamingStrategy = new SnakeCaseNamingStrategy()
     ));
 var client = new ElasticClient(connectionSettings);</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_derived_serializers"></a>Derived serializers<a href="https://github.com/elastic/elasticsearch-net/edit/master/docs/client-concepts/high-level/serialization/custom-serialization.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>If you’d like to be more explicit, you can also derive from <code class="literal">ConnectionSettingsAwareSerializerBase</code>
-and override the <code class="literal">CreateJsonSerializerSettings</code> and <code class="literal">ModifyContractResolver</code> methods</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">public class MyCustomJsonNetSerializer : ConnectionSettingsAwareSerializerBase
+and override the <code class="literal">CreateJsonSerializerSettings</code> and <code class="literal">ModifyContractResolver</code> methods</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">public class MyFirstCustomJsonNetSerializer : ConnectionSettingsAwareSerializerBase
 {
-    public MyCustomJsonNetSerializer(IElasticsearchSerializer builtinSerializer, IConnectionSettingsValues connectionSettings)
+    public MyFirstCustomJsonNetSerializer(IElasticsearchSerializer builtinSerializer, IConnectionSettingsValues connectionSettings)
         : base(builtinSerializer, connectionSettings) { }
-
-    protected override IEnumerable&lt;JsonConverter&gt; CreateJsonConverters() =&gt;
-        Enumerable.Empty&lt;JsonConverter&gt;();
 
     protected override JsonSerializerSettings CreateJsonSerializerSettings() =&gt;
         new JsonSerializerSettings
@@ -789,11 +784,7 @@ and override the <code class="literal">CreateJsonSerializerSettings</code> and <
 
     protected override void ModifyContractResolver(ConnectionSettingsAwareContractResolver resolver) =&gt;
         resolver.NamingStrategy = new SnakeCaseNamingStrategy();
-}</pre></div><p>Using <code class="literal">MyCustomJsonNetSerializer</code>, we can serialize using</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-a Json.NET <code class="literal">NamingStrategy</code> that snake cases property names
-</li><li class="listitem">
-<code class="literal">JsonSerializerSettings</code> that includes <code class="literal">null</code> properties
-</li></ul></div><p>without affecting how NEST’s own types are serialized. Furthermore, because this serializer is aware of
+}</pre></div><p>Using <code class="literal">MyCustomJsonNetSerializer</code>, we can serialize using</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">a Json.NET <code class="literal">NamingStrategy</code> that snake cases property names</li><li class="listitem"><code class="literal">JsonSerializerSettings</code> that includes <code class="literal">null</code> properties</li></ul></div><p>without affecting how NEST’s own types are serialized. Furthermore, because this serializer is aware of
 the built-in serializer, we can automatically inject a <code class="literal">JsonConverter</code> to handle
 known NEST types that could appear as part of the source, such as the aformentioned <code class="literal">QueryContainer</code>.</p><p>Let’s demonstrate with an example document type</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">public class MyDocument
 {
@@ -804,28 +795,105 @@ known NEST types that could appear as part of the source, such as the aformentio
     public string FilePath { get; set; }
 
     public int OwnerId { get; set; }
+
+    public IEnumerable&lt;MySubDocument&gt; SubDocuments { get; set; }
+}
+
+public class MySubDocument
+{
+    public string Name { get; set; }
 }</pre></div><p>Hooking up the serializer and using it is as follows</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
 var connectionSettings = new ConnectionSettings(
     pool,
     connection: new InMemoryConnection(), <a id="CO40-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
-    sourceSerializer: (builtin, settings) =&gt; new MyCustomJsonNetSerializer(builtin, settings))
+    sourceSerializer: (builtin, settings) =&gt; new MyFirstCustomJsonNetSerializer(builtin, settings))
     .DefaultIndex("my-index");
 
-var client = new ElasticClient(connectionSettings);</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>
-an <span class="emphasis"><em>in-memory</em></span> connection is used here for example purposes. In your production application, you would use an <code class="literal">IConnection</code> implementation that actually sends a request.
-</p></td></tr></table></div><p>Now, if we index an instance of our document type</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var document = new MyDocument
+var client = new ElasticClient(connectionSettings);</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>an <span class="emphasis"><em>in-memory</em></span> connection is used here for example purposes. In your production application, you would use an <code class="literal">IConnection</code> implementation that actually sends a request.</p></td></tr></table></div><p>Now, if we index an instance of our document type</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var document = new MyDocument
 {
     Id = 1,
     Name = "My first document",
     OwnerId = 2
 };
 
-var indexResponse = client.IndexDocument(document);</pre></div><p>it serializes to</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-javascript">{
-  "id": 1,
-  "name": "My first document",
-  "file_path": null,
-  "owner_id": 2
-}</pre></div><p>which adheres to the conventions of our configured <code class="literal">MyCustomJsonNetSerializer</code> serializer.</p></div></div><div class="navfooter"><span class="prev"><a href="serialization.html">
+var indexResponse = client.IndexDocument(document);</pre></div><p>it serializes to</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var expected = new
+{
+    id = 1,
+    name = "My first document",
+    file_path = (string) null,
+    owner_id = 2,
+    sub_documents = (object) null
+};</pre></div><p>which adheres to the conventions of our configured <code class="literal">MyCustomJsonNetSerializer</code> serializer.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_serializing_type_information"></a>Serializing Type Information<a href="https://github.com/elastic/elasticsearch-net/edit/master/docs/client-concepts/high-level/serialization/custom-serialization.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Here’s another example that implements a custom contract resolver. The custom contract resolver
+will include the type name within the serialized JSON for the document, which can be useful when
+returning covariant document types within a collection.</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">public class MySecondCustomContractResolver : ConnectionSettingsAwareContractResolver
+{
+    public MySecondCustomContractResolver(IConnectionSettingsValues connectionSettings)
+        : base(connectionSettings) { }
+
+    protected override JsonContract CreateContract(Type objectType)
+    {
+        var contract = base.CreateContract(objectType);
+        if (contract is JsonContainerContract containerContract)
+        {
+            if (containerContract.ItemTypeNameHandling == null)
+                containerContract.ItemTypeNameHandling = TypeNameHandling.None;
+        }
+
+        return contract;
+    }
+}
+
+public class MySecondCustomJsonNetSerializer : ConnectionSettingsAwareSerializerBase
+{
+    public MySecondCustomJsonNetSerializer(IElasticsearchSerializer builtinSerializer, IConnectionSettingsValues connectionSettings)
+        : base(builtinSerializer, connectionSettings) { }
+
+    protected override JsonSerializerSettings CreateJsonSerializerSettings() =&gt;
+        new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            NullValueHandling = NullValueHandling.Ignore,
+            TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
+        };
+
+    protected override ConnectionSettingsAwareContractResolver CreateContractResolver() =&gt;
+        new MySecondCustomContractResolver(ConnectionSettings); <a id="CO41-1"></a><span><img src="images/icons/callouts/1.png" alt="" /></span>
+}</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO41-1"><span><img src="images/icons/callouts/1.png" alt="" /></span></a> </p></td><td valign="top" align="left"><p>override the contract resolver</p></td></tr></table></div><p>Now, hooking up this serializer</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
+var connectionSettings = new ConnectionSettings(
+        pool,
+        connection: new InMemoryConnection(),
+        sourceSerializer: (builtin, settings) =&gt; new MySecondCustomJsonNetSerializer(builtin, settings))
+    .DefaultIndex("my-index");
+
+var client = new ElasticClient(connectionSettings);</pre></div><p>and indexing an instance of our document type</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var document = new MyDocument
+{
+    Id = 1,
+    Name = "My first document",
+    OwnerId = 2,
+    SubDocuments = new []
+    {
+        new MySubDocument { Name = "my first sub document" },
+        new MySubDocument { Name = "my second sub document" },
+    }
+};
+
+var indexResponse = client.IndexDocument(document);</pre></div><p>serializes to</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-csharp">var expected = new JObject
+{
+    { "$type", "Tests.ClientConcepts.HighLevel.Serialization.GettingStarted+MyDocument, Tests" },
+    { "id", 1 },
+    { "name", "My first document" },
+    { "ownerId", 2 },
+    { "subDocuments", new JArray
+        {
+            new JObject { { "name", "my first sub document" } },
+            new JObject { { "name", "my second sub document" } },
+        }
+    }
+};</pre></div><p>the type information is serialized for the outer <code class="literal">MyDocument</code> instance, but not for each
+<code class="literal">MySubDocument</code> instance in the <code class="literal">SubDocuments</code> collection.</p><p>When implementing a custom contract resolver derived from <code class="literal">ConnectionSettingsAwareContractResolver</code>,
+be careful not to change the behaviour of the resolver for NEST types; doing so will result in
+unexpected behaviour.</p><div class="warning admon"><div class="icon"><img alt="Warning" src="images/icons/warning.png" /></div><div class="admon_content"><p>Per the <a class="ulink" href="https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_TypeNameHandling.htm" target="_top">Json.NET documentation on TypeNameHandling</a>,
+it should be used with caution when your application deserializes JSON from an external source.</p></div></div></div></div><div class="navfooter"><span class="prev"><a href="serialization.html">
               « 
               Serialization</a>
            
